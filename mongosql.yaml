@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongosql
+  labels:
+    app: mongosql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongosql
+  template:
+    metadata:
+      labels:
+        app: mongosql
+    spec:
+      containers:
+      - name: mongosql
+        image: sarvaiya/mongosqld:latest
+        env:
+        - name: SECRET_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: bisecret
+              key: username
+        - name: SECRET_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: bisecret
+              key: password
+        port:
+        - containerPort: 3307
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: config
+          mountPath: "/etc/mongosqld"
+      volumes:
+      - name: config
+        configMap:
+          name: mongobic        
