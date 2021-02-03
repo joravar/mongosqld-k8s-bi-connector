@@ -18,18 +18,20 @@ spec:
       containers:
       - name: mongosql
         image: sarvaiya/mongosqld:latest
-        env:
-        - name: SECRET_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: bisecret
-              key: username
-        - name: SECRET_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: bisecret
-              key: password
-        port:
+        # command: [ "/bin/sh", "-c", "/usr/local/bin/mongosqld --config /etc/mongosqld/config.yaml"]
+        # command: [ "/bin/sh", "-c", "sleep 3600"]
+        # env:
+        # - name: SECRET_USERNAME
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: bisecret
+        #       key: username
+        # - name: SECRET_PASSWORD
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: bisecret
+        #       key: password
+        ports:
         - containerPort: 3307
         imagePullPolicy: Always
         volumeMounts:

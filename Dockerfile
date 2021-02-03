@@ -12,3 +12,4 @@ RUN mkdir -p mongodb-bi \
  && rm -fr mongodb-bi
 ADD start.sh /scripts/start.sh
 CMD /scripts/start.sh
+USER 2000
